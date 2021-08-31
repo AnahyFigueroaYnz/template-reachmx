@@ -1,40 +1,3 @@
-.span-rg {
-    margin: 0px;
-    font-size: 14px;
-}
-
-.f-block {
-    display: block;
-}
-
-.f-flex {
-    width: 100%;
-    display: flex;
-    align-items: center;
-    justify-content: space-around;
-}
-
-.lbl-form {
-    margin: 0px;
-    font-size: 12px;
-    font-family: sans-serif;
-    color: #6c757d !important;
-}
-
-.form-control-border {
-    font-family: sans-serif;
-    padding: 2px 5px 2px 8px;
-    font-size: 12px !important;
-    height: calc(2rem - 8px) !important;
-}
-
-.form-control:disabled, 
-.form-control[readonly] {
-    opacity: 2;
-    color: #a8a9a9;
-    cursor: not-allowed;
-}
-
 .body-tabs {
     padding: 5px 5px 10px;
 }
@@ -54,6 +17,28 @@
 .bg-pop:hover,
 .bg-pop:focus {
     color: #d39e00 !important;
+}
+
+.card-prodImgs .single {
+    text-align: center;
+    padding: 2rem 0rem;
+}
+
+.card-prodImgs .single img {
+    width: 100%;
+    height: 30vh;
+    object-fit: scale-down;
+}
+
+.card-prodImgs .minis {
+    display: flex;
+    text-align: center;
+}
+
+.card-prodImgs .minis img {
+    width: 50%;
+    border-radius: 0.25rem;
+    object-fit: scale-down;
 }
 
 .prodsContent {
@@ -89,7 +74,7 @@
     font-weight: 600;
     margin-top: -1px;
     font-family: sans-serif;
-    color: #6c757d!important;
+    color: #6c757d !important;
 }
 
 .card-lists .card-header .card-btn {
@@ -136,7 +121,7 @@
     justify-content: space-between;
     border-radius: 0rem !important;
     background-color: transparent;
-    border-bottom: 1px solid rgba(0,0,0,.125);
+    border-bottom: 1px solid rgba(0, 0, 0, 0.125);
 }
 
 .card-element .card-header .card-title {
@@ -144,7 +129,7 @@
     font-size: 12px;
     font-weight: 600;
     font-family: sans-serif;
-    color: #6c757d!important;
+    color: #6c757d !important;
 }
 
 .card-element .card-header .card-btns {
@@ -189,7 +174,7 @@
     margin-bottom: 2px;
     align-items: center;
     font-family: sans-serif;
-    color: #6c757d!important;
+    color: #6c757d !important;
     justify-content: space-between;
 }
 
@@ -236,7 +221,7 @@
     margin: 0px 10px 0px 0px;
 }
 
-.element-img.img-single{
+.element-img.img-single {
     width: 50%;
     object-fit: scale-down;
 }
@@ -279,7 +264,6 @@
 .carousel a.carousel-control-next {
     padding: 0px 1px 0px 4px;
 }
-
 
 .card-tasks {
     box-shadow: none;
@@ -406,7 +390,7 @@
 }
 
 .todo-list > li.done {
-    color: #6c757d!important;
+    color: #6c757d !important;
 }
 .todo-list > li .text {
     font-weight: 500 !important;
@@ -465,7 +449,6 @@
     transform: translate(7.75px, 4.5px) rotate(45deg);
 }
 
-
 .docs-list {
     padding: 0px;
     overflow: auto;
@@ -503,7 +486,7 @@
 .docs-list .lstDocs .span-rg {
     margin: 0px;
     font-size: 14px;
-    color: #6c757d!important;
+    color: #6c757d !important;
 }
 
 .docs-list .lstDocs .span-rg .spTools {
@@ -563,7 +546,7 @@
 .producto-list .lsProducto .span-rg {
     margin: 0px;
     font-size: 14px;
-    color: #6c757d!important;
+    color: #6c757d !important;
 }
 
 .producto-list .lsProducto .span-rg .spTools {
@@ -587,10 +570,15 @@
     font-weight: 300;
     padding: 2px 2px;
     position: relative;
-    color: #6c757d !important;
+    color: #6c757d;
+}
+.media-group .actions.disabled {
+    cursor: no-drop;
+    font-size: 13px;
+    color: #c50606a8;
 }
 
-.media-group .actions .actions-group {
+.media-group .actions-group {
     display: flex;
     position: relative;
     align-items: center;
@@ -598,8 +586,9 @@
     justify-content: space-between;
 }
 
-.media-group .actions .btn-action {
+.media-group .btn-action {
     border: 0px;
+    cursor: pointer;
     font-size: 14px;
     font-weight: 300;
     margin-left: 4px;
@@ -641,7 +630,6 @@
     font-size: 20px;
 }
 
-
 .aduna-list {
     padding: 0px;
     overflow: auto;
@@ -679,7 +667,7 @@
 .aduna-list .lsAduana .span-rg {
     margin: 0px;
     font-size: 14px;
-    color: #6c757d!important;
+    color: #6c757d !important;
 }
 
 .aduna-list .lsAduana .span-rg .spTools {
@@ -715,13 +703,13 @@
     background-color: #fff !important;
 }
 
-.direct-chat-contacts  .span-rg {
+.direct-chat-contacts .span-rg {
     margin: 0px;
     font-size: 12px;
-    color: #6c757d!important;
+    color: #6c757d !important;
 }
 
-@media (min-width: 768px) {
+@media (min-width: 834px) {
     .responsive-tabs.nav-tabs {
         display: flex;
     }
@@ -775,7 +763,7 @@
         border-color: #007bff #dee2e6 #fff #dee2e6;
     }
 }
-@media (max-width: 768px) {
+@media (max-width: 833px) {
     .responsive-tabs.nav-tabs {
         display: block;
         border-top: 4px solid;

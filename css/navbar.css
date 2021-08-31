@@ -4,13 +4,6 @@
     width: 2.5rem;
 }
 
-.marca-agua {
-    background-image: url("../../resources/logos/logo_marca_agua.svg");
-    background-repeat: no-repeat;
-    background-position: center;
-    background-size: inherit;
-}
-
 .drop-user-img {
     background: -webkit-linear-gradient(110deg, #0090ff 60%, #5cb85c 60%);
     background: -o-linear-gradient(110deg, #fdcd3b 60%, #ffed4b 60%);
@@ -22,6 +15,17 @@
     height: 5rem;
     width: 5rem;
     box-shadow: 0 3px 6px rgb(0 0 0 / 16%), 0 3px 6px rgb(0 0 0 / 23%) !important;
+}
+
+.bg-perfil {
+    top: 0px;
+    border: 0px;
+    right: -10px;
+    font-size: 14px;
+    font-weight: 600;
+    color: #007bff;
+    position: absolute;
+    background-color: transparent;
 }
 
 .btn-default {

@@ -125,7 +125,7 @@ $(document).ready(function () {
         .columns.adjust();
     $("#tblTodosProy_filter_filter input").attr("placeholder", "Buscar");
 
-    $("#tblTodosProy").on("click", "a.eliminar_proyecto", function (e) {
+    $("#tblTodosProy").on("click", "a.trashCan", function (e) {
         e.preventDefault();
 
         swalWithBootstrapButtons
@@ -269,31 +269,6 @@ $(document).ready(function () {
         })
         .columns.adjust();
     $("#tblProyElimiados_filter input").attr("placeholder", "Buscar");
-    $("#tblProyElimiados").on("click", "a.eliminar_proyecto", function (e) {
-        e.preventDefault();
-
-        swalWithBootstrapButtons
-            .fire({
-                title: "¿Seguro que deseas eliminar este proyecto?",
-                text: "¡No podrás revertir esto!",
-                icon: "warning",
-                showCancelButton: true,
-                confirmButtonText: "Si",
-                cancelButtonText: "Cancelar.",
-                reverseButtons: false,
-            })
-            .then((result) => {
-                if (result.isConfirmed) {
-                    table.row($(this).parents("tr")).remove().draw();
-                    Toast.fire({
-                        icon: "success",
-                        title: "Proyecto eliminado correctamente",
-                    });
-                } else if (result.dismiss === Swal.DismissReason.cancel) {
-                    Swal.DismissReason.cancel;
-                }
-            });
-    });
 
     table = $("#tblAsesores")
         .DataTable({

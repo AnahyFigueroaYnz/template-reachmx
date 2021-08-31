@@ -37,10 +37,11 @@ var valorMercancia = 0;
 
 var countProd = 0;
 var countImgs = 0;
+var countImgUp = 0;
 var cntAduana = false;
 
 function winSize() {
-    if (window.innerHeight <= 832) {
+    if (window.innerHeight <= 833) {
         tabMobil = true;
         tabText = $(".responsive-tabs > li a.active").html();
         $("#txtTabDrop").val(tabText);
@@ -55,7 +56,7 @@ function winSize() {
         $("#liActive").addClass("active");
         $("#tabActive").addClass("active");
     }
-    if (window.innerWidth >= 833) {
+    if (window.innerWidth >= 834) {
         tabMobil = false;
         tabText = $(".responsive-tabs > li a.active").html();
         $("#txtTabDrop").val(tabText);
@@ -236,12 +237,22 @@ $(document).ready(function () {
     $(document).on("click", "#upFiles", function (event) {
         event.preventDefault();
         id = countImgs;
+        countImgUp++;
 
+        $(".actions").html("Producto imagenes");
         $(".mediaStock" + id + "").removeClass("hidden");
 
-        $("#fileClip").removeClass("hidden");
-        $("#upFiles").addClass("hidden");
-        $("#cancelEx").addClass("hidden");
+        if (countImgs == 3) {
+            $("#upFiles").addClass("hidden");
+            $("#cancelEx").addClass("hidden");
+            $("#fileClip").addClass("hidden");
+            $(".actions").addClass("disabled");
+            $(".actions").html("Máximo 3 archivos, eliminar para cambiar");
+        } else {
+            $("#upFiles").addClass("hidden");
+            $("#cancelEx").addClass("hidden");
+            $("#fileClip").removeClass("hidden");
+        }
     });
 
     $(document).on("click", "#cancelEx", function (event) {
@@ -249,19 +260,22 @@ $(document).ready(function () {
         id = countImgs;
         countImgs--;
 
-        if (id == 1) {
+        if (countImgs == 0) {
             $(".mediaStock").addClass("hidden");
+            $(".actions").html("Producto imagenes");
+            $(".actions").removeClass("disabled");
+            $(".actions").html("Producto imagenes");
         }
 
         $("#imgProdName" + id + "").html("");
         $(".mediaStock" + id + "").addClass("hidden");
 
-        $("#fileClip").removeClass("hidden");
         $("#upFiles").addClass("hidden");
         $("#cancelEx").addClass("hidden");
+        $("#fileClip").removeClass("hidden");
     });
 
-    $(document).on("click", "del-prod", function (event) {
+    $(document).on("click", ".del-prod", function (event) {
         event.preventDefault();
         id = $(this).data("id");
         countImgs--;
@@ -273,10 +287,87 @@ $(document).ready(function () {
             $(".mediaStock").addClass("hidden");
         }
 
-        $("#mediWarning").addClass("hidden");
-        $("#fileClip").removeAttr("disabled");
-        $("#upFiles").removeAttr("disabled");
-        $("#cancelEx").removeAttr("disabled");
+        $("#upFiles").removeClass("hidden");
+        $(".actions").removeClass("disabled");
+        $(".actions").html("Producto imagenes");
+    });
+
+    $(document).on("click", ".imgProd", function (event) {
+        event.preventDefault();
+        id = $(this).data("id");
+
+        $("#modalImgProd").modal();
+
+        if (countImgUp == 1) {
+            $("#minis").addClass("hidden");
+            $("#imgZoom").attr("src", "/resources/proyecto/productos/producto_02-1.jpg");
+        } else {
+            if (countImgUp == 2) {
+                $("#imgProdMin1").removeClass("hidden");
+                $("#imgProdMin2").removeClass("hidden");
+                $("#imgProdMin3").addClass("hidden");
+            } else if (countImgUp == 3) {
+                $("#imgProdMin1").removeClass("hidden");
+                $("#imgProdMin2").removeClass("hidden");
+                $("#imgProdMin3").removeClass("hidden");
+            }
+            $("#minis").removeClass("hidden");
+            $("#imgZoom").attr("src", "/resources/proyecto/productos/producto_03-1.png");
+        }
+    });
+
+    $(document).on("click", ".imgProd", function (event) {
+        event.preventDefault();
+        id = $(this).data("id");
+
+        $("#modalImgProd").modal();
+
+        if (countImgUp == 1) {
+            $("#minis").addClass("hidden");
+            $("#imgZoom").attr("src", "/resources/proyecto/productos/producto_02-1.jpg");
+        } else {
+            if (countImgUp == 2) {
+                $("#imgProdMin1").removeClass("hidden");
+                $("#imgProdMin2").removeClass("hidden");
+                $("#imgProdMin3").addClass("hidden");
+            } else if (countImgUp == 3) {
+                $("#imgProdMin1").removeClass("hidden");
+                $("#imgProdMin2").removeClass("hidden");
+                $("#imgProdMin3").removeClass("hidden");
+            }
+            $("#minis").removeClass("hidden");
+            $("#imgZoom").attr("src", "/resources/proyecto/productos/producto_03-1.png");
+        }
+    });
+
+    $(document).on("click", ".carousel-inner", function (event) {
+        event.preventDefault();
+
+        $("#modalImgProd").modal();
+        $("#minis").removeClass("hidden");
+        $("#imgProdMin1").removeClass("hidden");
+        $("#imgProdMin2").removeClass("hidden");
+        $("#imgProdMin3").removeClass("hidden");
+        $("#imgZoom").attr("src", "/resources/proyecto/productos/producto_03-1.png");
+    });
+
+    $(document).on("click", ".img-single", function (event) {
+        event.preventDefault();
+        
+        $("#modalImgProd").modal();
+        $("#minis").addClass("hidden");
+        $("#imgProdMin1").addClass("hidden");
+        $("#imgProdMin2").addClass("hidden");
+        $("#imgProdMin3").addClass("hidden");
+        $("#imgZoom").attr("src", "/resources/proyecto/productos/producto_02-1.jpg");
+    });
+
+    $(document).on("click", ".imgProdMin", function (event) {
+        event.preventDefault();
+        id = $(this).data("id");
+
+        src = $("#img_" + id + "").attr("src");
+        $("#imgZoom").attr("src", src);
     });
 
     $(document).on("click", "#tabProductos", function (event) {
@@ -545,75 +636,98 @@ $(document).ready(function () {
             selUnidad = "pzas.";
         }
 
-        var media = "";
-        if (countImgs == 0) {
+        var esp;
+        if (txtEspecf == "") {
+            esp = "";
+        } else {
+            esp = '<p class="text-dt">' + "<strong>Especificaciones: </strong>" + "<span>" + txtEspecf + "</span>" + "</p>";
+        }
+
+        var media;
+        if (countImgUp == 0) {
             media = "";
-        } else if (countImgs == 1) {
-            media = '<div class="mb-0">' + '<strong class="text-muted">Media: </strong>' + '<ul class="list-unstyled mb-0">' + '<li class="lstMedia">' + '<a href="" class="btn-link text-secondary">' + '<i class="far fa-fw fa-image"></i>' + '<span class="dataNameImg' + countImgs + '"> Prod imag_1.png</span>' + '<span class="dataURLImg' + countImgs + ' hidden">/resources/proyecto/productos/producto_02-1.png</span>' + "</a>" + "</li>" + "</ul>" + "</div>";
-        } else if (countImgs == 2) {
+        } else if (countImgUp == 1) {
             media =
                 '<div class="mb-0">' +
                 '<strong class="text-muted">Media: </strong>' +
                 '<ul class="list-unstyled mb-0">' +
                 '<li class="lstMedia">' +
-                '<a href="" class="btn-link text-secondary">' +
+                '<a href="" class="btn-link text-secondary imgProd" data-id="countImgUp">' +
                 '<i class="far fa-fw fa-image"></i>' +
-                '<span class="dataNameImg' +
-                countImgs +
-                '"> Prod imag_1.png</span>' +
+                '<span class="imgProd dataNameImg' +
+                countImgUp +
+                '" data-id="countImgUp"> Prod imag_1.png</span>' +
                 '<span class="dataURLImg' +
-                countImgs +
+                countImgUp +
+                ' hidden">/resources/proyecto/productos/producto_02-1.png</span>' +
+                "</a>" +
+                "</li>" +
+                "</ul>" +
+                "</div>";
+        } else if (countImgUp == 2) {
+            media =
+                '<div class="mb-0">' +
+                '<strong class="text-muted">Media: </strong>' +
+                '<ul class="list-unstyled mb-0">' +
+                '<li class="lstMedia">' +
+                '<a href="" class="btn-link text-secondary imgProd" data-id="countImgUp">' +
+                '<i class="far fa-fw fa-image"></i>' +
+                '<span class="imgProd dataNameImg' +
+                countImgUp +
+                '" data-id="countImgUp"> Prod imag_1.png</span>' +
+                '<span class="dataURLImg' +
+                countImgUp +
                 ' hidden">/resources/proyecto/productos/producto_03-1.png</span>' +
                 "</a>" +
                 "</li>" +
                 '<li class="lstMedia">' +
-                '<a href="" class="btn-link text-secondary">' +
+                '<a href="" class="btn-link text-secondary imgProd" data-id="countImgUp">' +
                 '<i class="far fa-fw fa-image"></i>' +
-                '<span class="dataNameImg' +
-                countImgs +
-                '"> Prod imag_2.png</span>' +
+                '<span class="imgProd dataNameImg' +
+                countImgUp +
+                '" data-id="countImgUp"> Prod imag_2.png</span>' +
                 '<span class="dataURLImg' +
-                countImgs +
+                countImgUp +
                 ' hidden">/resources/proyecto/productos/producto_03-2.png</span>' +
                 "</a>" +
                 "</li>" +
                 "</ul>" +
                 "</div>";
-        } else if (countImgs == 3) {
+        } else if (countImgUp == 3) {
             media =
                 '<div class="mb-0">' +
                 '<strong class="text-muted">Media: </strong>' +
                 '<ul class="list-unstyled mb-0">' +
                 '<li class="lstMedia">' +
-                '<a href="" class="btn-link text-secondary">' +
+                '<a href="" class="btn-link text-secondary imgProd" data-id="countImgUp">' +
                 '<i class="far fa-fw fa-image"></i>' +
-                '<span class="dataNameImg' +
-                countImgs +
-                '"> Prod imag_1.png</span>' +
+                '<span class="imgProd dataNameImg' +
+                countImgUp +
+                '" data-id="countImgUp"> Prod imag_1.png</span>' +
                 '<span class="dataURLImg' +
-                countImgs +
+                countImgUp +
                 ' hidden">/resources/proyecto/productos/producto_03-1.png</span>' +
                 "</a>" +
                 "</li>" +
                 '<li class="lstMedia">' +
-                '<a href="" class="btn-link text-secondary">' +
+                '<a href="" class="btn-link text-secondary imgProd" data-id="countImgUp">' +
                 '<i class="far fa-fw fa-image"></i>' +
-                '<span class="dataNameImg' +
-                countImgs +
-                '"> Prod imag_2.png</span>' +
+                '<span class="imgProd dataNameImg' +
+                countImgUp +
+                '" data-id="countImgUp"> Prod imag_2.png</span>' +
                 '<span class="dataURLImg' +
-                countImgs +
+                countImgUp +
                 ' hidden">/resources/proyecto/productos/producto_03-2.png</span>' +
                 "</a>" +
                 "</li>" +
                 '<li class="lstMedia">' +
-                '<a href="" class="btn-link text-secondary">' +
+                '<a href="" class="btn-link text-secondary imgProd" data-id="countImgUp">' +
                 '<i class="far fa-fw fa-image"></i>' +
-                '<span class="dataNameImg' +
-                countImgs +
-                '"> Prod imag_3.png</span>' +
+                '<span class="imgProd dataNameImg' +
+                countImgUp +
+                '" data-id="countImgUp"> Prod imag_3.png</span>' +
                 '<span class="dataURLImg' +
-                countImgs +
+                countImgUp +
                 ' hidden">/resources/proyecto/productos/producto_03-3.png</span>' +
                 "</a>" +
                 "</li>" +
@@ -667,12 +781,7 @@ $(document).ready(function () {
             selUnidad +
             "</small>" +
             "</p>" +
-            '<p class="text-dt">' +
-            "<strong>Especificaciones:</strong>" +
-            "<span>" +
-            txtEspecf +
-            "</span>" +
-            "</p>" +
+            esp +
             "</div>" +
             media +
             "</div>" +
@@ -691,6 +800,19 @@ $(document).ready(function () {
         $("#txtPrecio").val("");
         $("#txtCantidad").val("");
         $("#txtProdTotal").val("");
+
+        countImgs = 0;
+        $("#imgProdName1").html("");
+        $("#imgProdName2").html("");
+        $("#imgProdName3").html("");
+        $("#upFiles").addClass("hidden");
+        $("#cancelEx").addClass("hidden");
+        $(".mediaStock").addClass("hidden");
+        $(".mediaStock1").addClass("hidden");
+        $(".mediaStock2").addClass("hidden");
+        $(".mediaStock3").addClass("hidden");
+        $("#fileClip").removeClass("hidden");
+        $(".actions").html("Producto imagenes");
 
         if ((valorMercancia = 0 || valorMercancia <= 25000)) {
             mtlHonorarios = valorMercancia * 0.08;
@@ -797,7 +919,7 @@ $(document).ready(function () {
         } else {
             valArancel = parseFloat($("#selArancel").val());
         }
-        
+
         sumLogistic = logistica + valorMercancia;
         prcArancel = sumLogistic * valArancel;
         sumArancel = prcArancel + logistica;
@@ -1007,7 +1129,7 @@ $(document).ready(function () {
         fltTotal = parseFloat(fixTotal);
         stgTotal = String(fltTotal);
         totalProd = fltTotal;
-        
+
         $("#txtTotalProds").val(fltTotal);
         $("#txtTotalProd").val(stgTotal);
         $("#txtProdTotal").val(stgTotal);
@@ -1193,7 +1315,7 @@ $(document).ready(function () {
         sumArancel = prcArancel + logistica;
         $("#txtArancel").val(sumArancel);
         arancel = sumArancel;
-        
+
         sumDTA = logistica + valorMercancia;
         mltDTA = sumDTA * 0.008;
         fixDTA = mltDTA.toFixed(2);
@@ -1367,26 +1489,24 @@ $(document).ready(function () {
         countImgs++;
         id = countImgs;
 
+        files = event.target.files;
         spClass = "#imgProdName" + id;
-        spName = $(spClass).html();
-        if (countImgs > 3) {
-            $("#mediWarning").removeClass("hidden");
 
-            $("#fileClip").attr("disabled", true);
-            $("#upFiles").attr("disabled", true);
-            $("#cancelEx").attr("disabled", true);
+        if (countImgs == 1) {
+            $(".actions").html("Prod imag_1.png");
+        } else if (countImgs == 2) {
+            $(".actions").html("Prod imag_2.png");
+        } else if (countImgs == 3) {
+            $(".actions").html("Prod imag_3.png");
         }
 
-        if (spName == "" || spName == undefined) {
-            inputFile = event.currentTarget;
-            $(".mediaStock").removeClass("hidden");
-            $("#trashCan" + id + "").attr("data-id", id);
-            $("#imgProdName" + id + "").html("Prod imag_" + id + "");
+        $(".mediaStock").removeClass("hidden");
+        $("#trashCan" + id + "").attr("data-id", id);
+        $("#imgProdName" + id + "").html("Prod imag_" + id + "");
 
-            $("#fileClip").addClass("hidden");
-            $("#upFiles").removeClass("hidden");
-            $("#cancelEx").removeClass("hidden");
-        }
+        $("#fileClip").addClass("hidden");
+        $("#upFiles").removeClass("hidden");
+        $("#cancelEx").removeClass("hidden");
     });
 
     $(document).on("change", ".fileClip", function (event) {

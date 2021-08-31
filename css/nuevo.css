@@ -382,7 +382,7 @@ select.form-control:focus {
 }
 
 /* Arrow del select2*/
-.text-sm .select2-container--default .select2-selection--single .select2-selection__arrow,
+/* .text-sm .select2-container--default .select2-selection--single .select2-selection__arrow,
 select.form-control-sm~.select2-container--default .select2-selection--single .select2-selection__arrow {
 	top: 0.2rem;
 	right: 7px;
@@ -435,7 +435,7 @@ select.form-control-sm~.select2-container--default .select2-selection--single {
 
 .select2-container--default .select2-results__option {
 	font-size: 14px;
-}
+} */
 
 .pdf-icon {
 	vertical-align: middle !important;

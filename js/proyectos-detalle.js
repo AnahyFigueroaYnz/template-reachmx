@@ -1475,10 +1475,12 @@ $(document).ready(function () {
         event.preventDefault();
         id = $(this).data("id");
         var clase = $(this).attr("class");
-        if (clase == "lstTask") {
+        if (clase == "lstTask done") {
             $("#badgetCheck" + id + "").removeClass("hidden");
-        } else if (clase == "lstTask done") {
+            $("#spTask" + id + "").css("text-decoration", "line-through");
+        } else if (clase == "lstTask") {
             $("#badgetCheck" + id + "").addClass("hidden");
+            $("#spTask" + id + "").css("text-decoration", "none");
         }
 
         $(".badgeCheck").html(todayPrint);

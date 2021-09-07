@@ -227,13 +227,15 @@
 }
 
 .badge-task {
-    font-size: 11px;
+    font-size: 10px;
     font-weight: 500;
+    font-family: sans-serif;
 }
 
 .badget-task {
-    font-size: 12px;
+    font-size: 11px;
     font-weight: 500;
+    font-family: sans-serif;
 }
 
 .borders {
@@ -242,7 +244,8 @@
 
 .span-rg {
     margin: 0px;
-    font-size: 14px;
+    font-size: 12px;
+    font-family: sans-serif;
 }
 
 .f-block {

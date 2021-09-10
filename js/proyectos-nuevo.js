@@ -606,13 +606,15 @@ $(document).ready(function () {
         event.preventDefault();
         $("#cardSendOrder").removeClass("hidden");
         $("#cardOrderItems").addClass("hidden");
+
         // Aqui va correo
         $.ajax({  
              type:"POST",  
              url:'Enviar.php',  
              data:null,    
-        });  
-    });
+        }); 
+    });      
+
 
     $(document).on("click", "#btnDelProd", function (event) {
         event.preventDefault();

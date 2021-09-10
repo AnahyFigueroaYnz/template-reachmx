@@ -139,15 +139,13 @@
 		</html>';
 	$mensajeFinal = utf8_decode($_mensaje);
 		
-	// Para enviar un correo HTML, debe establecerse la cabecera Content-type
-	
-	$headers  = 'MIME-Version: 1.0' . "\r\n";
-	$headers .= 'Content-type: text/html; charset=iso-8859-1' . "\r\n";
-
-	// Cabeceras adicionales
-	$headers .= 'To: '.$email_to . "\r\n";
-	$headers .= 'From: '.$email_from . "\r\n";
+	// Para enviar un correo HTML, debe establecerse la cabecera Content-type	
+	$cabeceras = 'From: hola@reachmx.com' . "\r\n" .
+	    'Reply-To: hola@reachmx.com' . "\r\n" .
+	    'MIME-Version: 1.0' . "\r\n".
+	    'Content-type: text/html; charset=iso-8859-1' . "\r\n".
+	    'X-Mailer: PHP/' . phpversion();
 
 	// Enviarlo
-	mail($email_to, $email_subject, $mensajeFinal, $headers);
+	mail($email_from, $email_subject, $mensajeFinal, $cabeceras);
 ?>

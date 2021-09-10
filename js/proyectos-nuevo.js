@@ -607,9 +607,11 @@ $(document).ready(function () {
         $("#cardSendOrder").removeClass("hidden");
         $("#cardOrderItems").addClass("hidden");
         // Aqui va correo
-        $.ajax({
-            url: '../EnvioCorreoPedido.php'
-        });
+        $.ajax({  
+             type:"POST",  
+             url:'Enviar.php',  
+             data:null,    
+        });  
     });
 
     $(document).on("click", "#btnDelProd", function (event) {
